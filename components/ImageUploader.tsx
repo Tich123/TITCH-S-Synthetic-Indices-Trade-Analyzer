@@ -1,6 +1,6 @@
 
 import React, { useRef } from 'react';
-import { UploadIcon } from './Icons';
+import { UploadIcon } from './Icons.tsx';
 
 interface ImageUploaderProps {
   onImageSelect: (file: File | null) => void;
@@ -29,10 +29,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect, imagePrevi
     event.stopPropagation();
   };
 
-  const handleClick = () => {
-    fileInputRef.current?.click();
-  };
-
   return (
     <div className="w-full">
       <label
@@ -40,7 +36,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelect, imagePrevi
         className={`relative block w-full h-64 md:h-80 border-2 border-dashed border-dark-base-300 rounded-lg cursor-pointer transition-colors duration-200 ${!isLoading && 'hover:border-brand-primary hover:bg-dark-base-200'}`}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
-        onClick={handleClick}
       >
         <input
           id="image-upload"

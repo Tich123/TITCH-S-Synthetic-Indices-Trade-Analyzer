@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-g" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Synthetic Indices Trade Analyzer</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,7 +27,8 @@
         }
       }
     </script>
-  <script type="importmap">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="importmap">
 {
   "imports": {
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
@@ -41,5 +41,6 @@
 </head>
   <body class="bg-dark-base-100 text-dark-content">
     <div id="root"></div>
+    <script type="text/babel" data-type="module" src="index.tsx"></script>
   </body>
 </html>

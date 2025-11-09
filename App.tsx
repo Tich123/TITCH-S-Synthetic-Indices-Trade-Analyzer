@@ -1,10 +1,9 @@
-
 import React, { useState, useCallback } from 'react';
-import { analyzeChartImage } from './services/geminiService';
-import Header from './components/Header';
-import ImageUploader from './components/ImageUploader';
-import AnalysisDisplay from './components/AnalysisDisplay';
-import Disclaimer from './components/Disclaimer';
+import Header from './components/Header.tsx';
+import ImageUploader from './components/ImageUploader.tsx';
+import AnalysisDisplay from './components/AnalysisDisplay.tsx';
+import Disclaimer from './components/Disclaimer.tsx';
+import { analyzeChartImage } from './services/geminiService.ts';
 
 const App: React.FC = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
