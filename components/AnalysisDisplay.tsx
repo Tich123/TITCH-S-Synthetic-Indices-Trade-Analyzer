@@ -39,26 +39,57 @@ const AnalysisDisplay: React.FC<AnalysisDisplayProps> = ({ analysis, isLoading, 
     );
   }
   
-  // Basic markdown-like formatting for headings and bold text
-  const formatText = (text: string) => {
-    return text
-      .split('\n')
-      .map((line, index) => {
-        if (line.startsWith('**') && line.endsWith('**')) {
-          return <p key={index} className="font-bold my-2">{line.slice(2, -2)}</p>;
-        }
-        if (line.startsWith('* **') && line.endsWith('**')) {
-            return <h3 key={index} className="text-lg font-semibold mt-4 mb-2">{line.slice(4,-2)}</h3>
-        }
-        if (line.startsWith('1. ') || line.startsWith('2. ') || line.startsWith('3. ') || line.startsWith('4. ') || line.startsWith('5. ')) {
-            return <h3 key={index} className="text-lg font-semibold mt-4 mb-2">{line}</h3>
-        }
-        if (line.startsWith('- ')) {
-          return <li key={index} className="ml-5 list-disc">{line.slice(2)}</li>;
-        }
-        return <p key={index}>{line}</p>;
-      });
+  const parseInlineFormatting = (text: string) => {
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={index}>{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
   };
+
+  const formatText = (text: string) => {
+    const blocks = text.split('\n\n');
+    return blocks.map((block, index) => {
+      const lines = block.split('\n');
+      
+      // Check for numbered lists
+      if (lines.every(line => /^\d+\.\s/.test(line))) {
+        return (
+          <ol key={index} className="list-decimal list-inside space-y-2 my-4">
+            {lines.map((item, itemIndex) => (
+              <li key={itemIndex}>{parseInlineFormatting(item.replace(/^\d+\.\s/, ''))}</li>
+            ))}
+          </ol>
+        );
+      }
+
+      // Check for bulleted lists
+      if (lines.every(line => /^- /.test(line))) {
+        return (
+          <ul key={index} className="list-disc list-inside space-y-2 my-4">
+            {lines.map((item, itemIndex) => (
+              <li key={itemIndex}>{parseInlineFormatting(item.substring(2))}</li>
+            ))}
+          </ul>
+        );
+      }
+
+      // Handle paragraphs and headings
+      return (
+        <div key={index}>
+          {lines.map((line, lineIndex) => {
+            if (/^\*\*.*\*\*$/.test(line)) {
+              return <h3 key={lineIndex} className="text-lg font-semibold mt-4 mb-2">{line.slice(2, -2)}</h3>
+            }
+            return <p key={lineIndex} className="my-2">{parseInlineFormatting(line)}</p>;
+          })}
+        </div>
+      );
+    });
+  };
+
 
   return (
     <div className="bg-dark-base-200 p-6 rounded-lg border border-dark-base-300 w-full">

@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+const { GoogleGenAI } = require("@google/genai");
 
 const API_KEY = process.env.API_KEY;
 
@@ -28,7 +28,7 @@ Your analysis MUST include the following sections:
 - Format your response using Markdown for clarity. Use headings, bold text, and bullet points.
 `;
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: JSON.stringify({ error: 'Method Not Allowed' }) };
   }
