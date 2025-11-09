@@ -1,0 +1,5 @@
+{
+  "name": "TITCH'S Synthetic Indices Trade Analyzer",
+  "description": "An AI-powered application that analyzes screenshots of Deriv synthetic indices charts and provides potential trading entry strategies based on technical analysis.",
+  "requestFramePermissions": []
+}
