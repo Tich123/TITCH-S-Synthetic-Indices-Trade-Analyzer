@@ -2,6 +2,9 @@
   "name": "titchs-synthetic-indices-trade-analyzer",
   "version": "1.0.0",
   "description": "An AI-powered application that analyzes screenshots of Deriv synthetic indices charts and provides potential trading entry strategies based on technical analysis.",
+  "scripts": {
+    "build": "mkdir dist && cp index.html index.tsx App.tsx metadata.json dist/ && cp -r components services dist/"
+  },
   "dependencies": {
     "@google/genai": "^1.29.0"
   }
